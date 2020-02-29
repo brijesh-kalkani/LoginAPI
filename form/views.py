@@ -19,3 +19,15 @@ def registration_view(request):
 		else:
 			data = serializer.errors
 		return Response(data)
+
+@api_view(['POST,'])
+def login_view(request):
+
+    if request.method == 'POST':
+        serializer = LoginSerializer(data=request.data)
+        data = {}
+        if serializer.is_valid():
+            date['response'] = 'User successfully Login'
+        else:
+            data['response'] = 'You have entered an invalid username or password'
+        return Response(data)

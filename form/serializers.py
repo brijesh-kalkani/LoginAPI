@@ -2,17 +2,28 @@ from rest_framework import serializers
 
 from form.models import Account
 
+# from django.contrib.auth.models import User
 
-# class LoginSerializer(serializers.ModelSerializer):
-# 	class Meta:
-# 		model = Account
-# 		fields = ['email', 'password',]
+class LoginSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Account
+		fields = ['email', 'password',]
 
-# 		extra_kwargs = {'password': {'write_only': True}}
+		extra_kwargs = {'password': {'write_only': True}}
 
-# 	def validate(self, data):
-# 		password = data.get('password')
-# 		email = data.get('email')
+        if Account.objects.filter(email=email,password=password).exists() :
+            return True
+
+        return False
+
+	# def validate(self, data):
+	# 	password = data.get('password')
+	# 	email = data.get('email')
+
+
+    # def username_present(email,password):
+
+
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -40,3 +51,16 @@ class RegistrationSerializer(serializers.ModelSerializer):
 		account.set_password(password)
 		account.save()
 		return account
+
+
+
+# class LoginSerializer(serializers.ModelSerializer):
+# 	class Meta:
+# 		model = Account
+# 		fields = ['email', 'password',]
+#
+# 		extra_kwargs = {'password': {'write_only': True}}
+#
+# 	def validate(self, data):
+# 		password = data.get('password')
+# 		email = data.get('email')
